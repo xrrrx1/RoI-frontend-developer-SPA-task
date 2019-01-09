@@ -1,11 +1,15 @@
 import React, { useContext, Fragment } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { Router } from "@reach/router";
+import { createHistory, LocationProvider, Router } from "@reach/router";
+import createHashSource from "hash-source";
 
 import Title from "../components/Title/Title";
 import { TextColorContext } from "../context/context";
 import Search from "../components/Search/Search";
 import Details from "../components/Details/Details";
+
+let source = createHashSource();
+let history = createHistory(source);
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -29,19 +33,21 @@ const App = () => {
   const TextColor = useContext(TextColorContext);
 
   return (
-    <ThemeProvider
-      theme={{ fontFamily: "Georgia, Times New Roman, Times, serif" }}
-    >
-      <Fragment>
-        <GlobalStyle textColor={TextColor} />
-        <Title />
+    <LocationProvider history={history}>
+      <ThemeProvider
+        theme={{ fontFamily: "Georgia, Times New Roman, Times, serif" }}
+      >
+        <Fragment>
+          <GlobalStyle textColor={TextColor} />
+          <Title />
 
-        <Router>
-          <Search path="/" />
-          <Details path="/details/:id" />
-        </Router>
-      </Fragment>
-    </ThemeProvider>
+          <Router>
+            <Search path="/" />
+            <Details path="/details/:id" />
+          </Router>
+        </Fragment>
+      </ThemeProvider>
+    </LocationProvider>
   );
 };
 
