@@ -1,3 +1,5 @@
+UPD: Что бы весь контент(отображение цитат) работал корректно - нужно клонировать репозиторий и запустить локально.
+
 ## DEMO : https://xrrrx1.github.io/RoI-frontend-developer-SPA-task/
 
 ## npm install
